@@ -6,4 +6,5 @@ c = b + a
 print("The \tnumber + 7 is: " + str(c))
 
 print("hello")
+print("omg")
 
