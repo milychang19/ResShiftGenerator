@@ -9,4 +9,5 @@ print(calendar.month(yy, mm))
 #print(itermonthdates(2024, 1))
 
 shifts = [2,3,5,4,1]
-list(shifts.sort())
+sorted_shifts = shifts.sort()
+print(sorted_shifts)
