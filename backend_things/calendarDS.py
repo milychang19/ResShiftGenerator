@@ -2,14 +2,11 @@ import calendar
 class calendarDS:
     def __init__(self, numEmployees, year, month):
         """
-        Adds two numbers.
+        Assigns a employee a specific type of shift
 
-        :param a: The first number.
-        :type a: int
-        :param b: The second number.
-        :type b: int
-        :return: The sum of the two numbers.
-        :rtype: int
+        :param numEmployees: Number of employees we're dealing with. (int)
+        :param year: The year in question. (int)
+        :param month: The month in question. (int)
         """
         self.numEmployees = int(numEmployees)
         monthTuple = calendar.monthrange(year, month)
