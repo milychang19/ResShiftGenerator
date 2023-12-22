@@ -93,5 +93,3 @@ class calendarDS:
 
 myCalender = calendarDS(5,2023,12)
 print(myCalender.getShiftType(12,4))
-print(myCalender.getEmployeeShiftSchedule(3))
-print(len(myCalender.getEmployeeShiftSchedule(3)))
