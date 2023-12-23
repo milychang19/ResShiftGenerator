@@ -1,11 +1,11 @@
-class RAs:
-    #constructor
+class RAs: # Better names: ResAssist, RAProfile, RAInfo
+    # Constructor
     def __init__(self, stuID, name, shifts):
         self.empID = stuID
         self.RAname = name
         self.numShifts = shifts
 
-    #dictionary
+    # Dictionary
     def display(self, employee):
         print(employee.__dict__)
 
