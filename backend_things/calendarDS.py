@@ -11,7 +11,7 @@ class calendarDS:
         self.numEmployees = int(numEmployees)
         monthTuple = calendar.monthrange(year, month)
         self.startDay = int(monthTuple[0])
-        self.calendarDblArr = [[0 for a in range(monthTuple[1])] for b in range(numEmployees)]
+        self.calendarDblArr = [[-1 for a in range(monthTuple[1])] for b in range(numEmployees)]
 
     def adjustDayNum(f):
         """
@@ -58,6 +58,11 @@ class calendarDS:
         """
         self.calendarDblArr[employeeNum][dayNum] = shiftTypeNum
     
+    @adjustDayNum
+    def isEmployeeAssigned(self, employeeNum, dayNum, shiftTypeNum):
+        if self.calendarDblArr[employeeNum][dayNum] == -1: return False
+        else: return True
+
     def isShiftTypeFilled(self, dayNum, shiftTypeNum):
         """
         Checks if there are enough people assigned a shift type for a specific day
@@ -87,6 +92,10 @@ class calendarDS:
             if (self.calendarDblArr[a][dayNum] == unavailableNum):
                 unavailable.append(a)
         return unavailable
+    
+    def sortCalendarTimeOff(self, staff):
+        
+        return 0
 
 
 

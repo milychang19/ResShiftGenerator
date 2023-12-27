@@ -26,3 +26,6 @@ for index, word in enumerate(words):
 
 for x in range(5):
     print(x)
+
+import calendar
+print(calendar.monthrange(2023, 12))
