@@ -1,7 +1,10 @@
 import calendarDS
 import csv
+import pandas as pd
+import math
 
 #this is staff.csv except in a list of dicts
+#fyi try not to delete files until the end bc we need them for version control
 testData = [
     {"numID": 0, "stuID": 86572, "stuName": "Emily", "timeOff": [13,14,29,3,10], "PH": 3, "NH": 5},
     {"numID": 1, "stuID": 75432, "stuName": "Richard", "timeOff": [13,14,25,19,9], "PH": 4, "NH": 5},
@@ -10,9 +13,16 @@ testData = [
     {"numID": 4, "stuID": 65789, "stuName": "Cardib", "timeOff": [5,17,18,21,27], "PH": 4, "NH": 3}
 ]
 
+staff_df = pd.DataFrame(testData)
+
+
+avg_ph = math.floor(staff_df.groupby('PH').mean())
+num = staff_df[staff_df['PH'] > avg_ph]
+
+#LAWA and JAM are the same team, unless we're tryna do something else here??
 residenceBuildings = [
-    "LA", "Gordon", "Martime", "Mountain", "Prairie", "Village", "Towers", 
-    "Johnston", "Maids", "Mills", "Watson", "Lambton"
+    "Gordon", "Martime", "Mountain", "Prairie", "Village", "Towers", 
+    "Johnston", "Maids", "Mills", "Watson", "Lambton", "LA"
 ]
 
 fieldnames = ['numID', 'stuID', 'stuName', 'timeOff', 'PH', 'NH']
@@ -20,7 +30,7 @@ fieldnames = ['numID', 'stuID', 'stuName', 'timeOff', 'PH', 'NH']
 with open("teamInfo.csv", mode="w", newline='') as csvFile:
     CSVdict = csv.DictWriter(csvFile, fieldnames=fieldnames)
     CSVdict.writeheader()
-    for emp in testData:
+    for emp in staff_df:
         CSVdict.writerow(emp)
 
 with open("residence.csv", mode="w", newline='') as csvFile:
@@ -43,6 +53,6 @@ class algo:# why do we need a algorithm class? I think def would be enough
         listOfStaff = self.ascendingSort(listOfStaff, shiftType)
         ##
     
-dataStructure = calendarDS(len(testData), YEAR, MONTH)
+dataStructure = calendarDS(len(staff_df), YEAR, MONTH)
 
     

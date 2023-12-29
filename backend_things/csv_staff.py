@@ -1,6 +1,5 @@
 import pandas as pd
 import csv
-
 import os
 
 #gets CSV file from the filePath
@@ -10,7 +9,7 @@ def get_building_files(filePath):
     count = 0
     for i in os.listdir(filePath):
         if ".csv" in i:
-            # the tring for the file will be "../whatever.csv"
+            # the string for the file will be "../whatever.csv"
             files_list.append(i[2:-4])
     if len(files_list) == 0:
         print("You have no files for any buildings")
@@ -50,19 +49,20 @@ def set_building_team():
 
 def get_building_team():
 
-    path = "../buildings.csv"
+    path = "../buildings_CSV"
     lists_to_print = get_building_files(path)
     num_files = print_file_list(lists_to_print)
     team_file_name = set_building_team()
 
     #depending on what the csv files will be called, changes file path
-    #now, it will be "../buildingsCSV/MNT.csv" 
+    #now, it will be "../buildings_CSV/MNT.csv" 
     input_file_name = path + "/" + team_file_name + ".csv"
     print(input_file_name)
     open_file(input_file_name)
 
 def first_pack_holder(io_file_name):
     num_first_pack_holder = []
+    num = staff_df[staff_df['PH'] > 3]
     try:
         with open(io_file_name) as csvDataFile:
             next(csvDataFile)
@@ -70,7 +70,7 @@ def first_pack_holder(io_file_name):
             for row in csvReader:
                 #row[3] is amount of FH
                 num_first_pack_holder.append(row[3])
-
+        num = staff_df[staff_df['PH'] > 3]
     except:
         print("Error: file not found or opened properly")
 
