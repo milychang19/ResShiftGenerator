@@ -36,20 +36,21 @@ residenceBuildings = [
 
 #fieldnames = ['numID', 'stuID', 'stuName', 'timeOff', 'PH', 'NH']
 # Write all members info to file "teamInfo.csv"
-'''
+
+""""
 with open("teamInfo.csv", mode="w", newline='') as csvFile:
-    CSVdict = csv.DictWriter(csvFile, fieldnames=fieldnames)
+    CSVdict = csv.DictWriter(csvFile, fieldnames= fieldnames)
     CSVdict.writeheader()
     for emp in staff_df:
         CSVdict.writerow(emp)
-'''
-'''
+"""
+"""
 with open("residence.csv", mode="w", newline='') as csvFile:
     CSVdict = csv.DictWriter(csvFile, fieldnames = fieldnames)
     CSVdict.writeheader()
     for building in residenceBuildings:
         CSVdict.writerow(building)
-'''
+"""
 
 
 
@@ -63,13 +64,21 @@ def findMinShift(listOfStaff, shiftType):
     :rtype: list of dicts
     :return: listOfStaff but sorted in ascending order based off of shift type already assigned
     '''
-    minShiftNum = listOfStaff[0][shiftType]
+    df = pd.DataFrame(listOfStaff)
+
+    minShiftNum = df[shiftType].min()
+    staff_with_min_shift = df[df[shiftType] == minShiftNum].to_dict('lowest')
+    return staff_with_min_shift
+'''
+    listOfStaff[0][shiftType]
     for staff in listOfStaff:
         if staff[shiftType] < minShiftNum:
             minShiftNum = staff[shiftType]
         
     return minShiftNum
-
+'''
+    
+# what is this ??
 def subarrayOfShiftType(listOfStaff, shiftType, minShiftCount):
     subarrayOfStaff = []
     for staff in listOfStaff:
@@ -101,6 +110,7 @@ def fillDaysOff(listOfStaff, numDays):
     print(f"DAY NUM: {numDays}")
     print(listOfDaysOff)
     return listOfDaysOff
+
 def myCoolHashFunc(index, bound):
     if (bound != 0):
         return index % bound
