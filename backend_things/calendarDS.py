@@ -98,7 +98,12 @@ class calendarDS:
                 unavailable.append(a)
         return unavailable
 
+    def printCalendar(year, month):
+        '''
+        Print the month
+        '''
+        print(calendar.month(year,month))
 
 
-myCalender = calendarDS(5,2023,12)
-print(myCalender.getShiftType(12,4))
+# myCalendar = calendarDS(5,2023,12)
+# print(myCalendar.getShiftType(12,4))
