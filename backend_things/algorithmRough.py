@@ -53,7 +53,7 @@ with open("residence.csv", mode="w", newline='') as csvFile:
 
 
 
-def ascendingSort(listOfStaff, shiftType):
+def findMinShift(listOfStaff, shiftType):
     '''
     A general sorter that sorts the listOfStaff based off of requested shift type
 
@@ -63,11 +63,14 @@ def ascendingSort(listOfStaff, shiftType):
     :rtype: list of dicts
     :return: listOfStaff but sorted in ascending order based off of shift type already assigned
     '''
-    listOfStaff.sort(key=lambda staff: staff[shiftType])
-    return listOfStaff
+    minShiftNum = listOfStaff[0][shiftType]
+    for staff in listOfStaff:
+        if staff[shiftType] < minShiftNum:
+            minShiftNum = staff[shiftType]
+        
+    return minShiftNum
 
 def subarrayOfShiftType(listOfStaff, shiftType, minShiftCount):
-    listOfStaff = ascendingSort(listOfStaff, shiftType)
     subarrayOfStaff = []
     for staff in listOfStaff:
         if staff[shiftType] == minShiftCount:
@@ -95,8 +98,13 @@ def fillDaysOff(listOfStaff, numDays):
         for staff in listOfStaff:
             if a+1 in staff["timeOff"]: listOfDaysOff[a+1] += 1
     listOfDaysOff = sorted(listOfDaysOff.items(), key=lambda entry: entry[1], reverse=True)
+    print(f"DAY NUM: {numDays}")
     print(listOfDaysOff)
     return listOfDaysOff
+def myCoolHashFunc(index, bound):
+    if (bound != 0):
+        return index % bound
+    return 0
 
 
 def main():
@@ -108,14 +116,13 @@ def main():
         dayNum = a[0]
 
         for shiftType in listOfShiftTypes:
-            minShiftCount = testData[0][shiftType]
+            minShiftCount = findMinShift(testData, shiftType)
             staffAssigned = False
             oopsiePoopsieCounter = 0
             randStartPoint = random.randint(0,len(testData))
 
             while staffAssigned is False:
                 subarrayOfStaff = subarrayOfShiftType(testData, shiftType, minShiftCount)
-                myCoolHashFunc = lambda a, b: a % b
                 indexOfStaff = subarrayOfStaff[myCoolHashFunc(randStartPoint + oopsiePoopsieCounter, len(subarrayOfStaff))]["numID"]
 
                 if indexOfStaff not in ds.unavailableEmployees(dayNum,0) and ds.isEmployeeAssigned(indexOfStaff,dayNum) is False:
@@ -126,14 +133,10 @@ def main():
                         minShiftCount += 1
                         oopsiePoopsieCounter = 0
     
-                
-            
-
-subarrayOfShiftType(testData, listOfShiftTypes[0], 3)
 
 
 
-#main()
+main()
 
 
 
