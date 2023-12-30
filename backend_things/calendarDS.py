@@ -9,9 +9,11 @@ class calendarDS:
         :param month: The month in question. (int)
         """
         self.numEmployees = int(numEmployees)
+
         monthTuple = calendar.monthrange(year, month)
         self.startDay = int(monthTuple[0])
         self.calendarDblArr = [[-1 for a in range(monthTuple[1])] for b in range(numEmployees)]
+        self.numDays = int(monthTuple[1])
 
     def adjustDayNum(f):
         """
@@ -31,6 +33,9 @@ class calendarDS:
     
     def getStartDay(self):
         return self.getStartDay
+    
+    def getNumDays(self):
+        return self.numDays
     
     def getNumEmployees(self):
         return self.numEmployees
@@ -59,7 +64,7 @@ class calendarDS:
         self.calendarDblArr[employeeNum][dayNum] = shiftTypeNum
     
     @adjustDayNum
-    def isEmployeeAssigned(self, employeeNum, dayNum, shiftTypeNum):
+    def isEmployeeAssigned(self, employeeNum, dayNum):
         if self.calendarDblArr[employeeNum][dayNum] == -1: return False
         else: return True
 
@@ -92,11 +97,6 @@ class calendarDS:
             if (self.calendarDblArr[a][dayNum] == unavailableNum):
                 unavailable.append(a)
         return unavailable
-    
-    def sortCalendarTimeOff(self, staff):
-        
-        return 0
-
 
 
 
