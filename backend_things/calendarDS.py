@@ -99,3 +99,8 @@ class calendarDS:
                 b += 1
             print("", end="\n")
                 
+    def printCalendar(year, month):
+        '''
+        Print the month
+        '''
+        print(calendar.month(year,month))
