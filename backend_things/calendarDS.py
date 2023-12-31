@@ -12,18 +12,8 @@ class calendarDS:
 
         monthTuple = calendar.monthrange(year, month)
         self.startDay = int(monthTuple[0])
-        self.calendarDblArr = [[-1 for a in range(monthTuple[1])] for b in range(numEmployees)]
+        self.calendarDblArr = [["___" for a in range(monthTuple[1])] for b in range(numEmployees)]
         self.numDays = int(monthTuple[1])
-
-    def adjustDayNum(f):
-        """
-        Before every method w/ an @adjustDayNum, dayNum will be dayNum - 1
-        """
-        def wrapper(self, dayNum, *args, **kwargs):
-            adjusted_day_num = dayNum - 1
-            result = f(self, adjusted_day_num, *args, **kwargs)
-            return result
-        return wrapper
     
     def getEmployeeShift(self, employeeNum):
         return self.calendarDblArr[employeeNum]
@@ -40,7 +30,6 @@ class calendarDS:
     def getNumEmployees(self):
         return self.numEmployees
     
-    @adjustDayNum
     def getShiftType(self, dayNum, employeeNum):
         """
         Returns an employee's shift type on a specific day
@@ -50,9 +39,9 @@ class calendarDS:
         :return: A shift type represented by an integer
         :rtype: int
         """
+        dayNum -= 1
         return self.calendarDblArr[employeeNum][dayNum]
 
-    @adjustDayNum
     def assignEmployeeShift(self, employeeNum, dayNum, shiftTypeNum):
         """
         Assigns a employee a specific type of shift
@@ -61,11 +50,12 @@ class calendarDS:
         :param dayNum: Number representing the day. (int)
         :param shiftTypeNum: Number representing the shift type. (int)
         """
+        dayNum -= 1
         self.calendarDblArr[employeeNum][dayNum] = shiftTypeNum
     
-    @adjustDayNum
     def isEmployeeAssigned(self, employeeNum, dayNum):
-        if self.calendarDblArr[employeeNum][dayNum] == -1: return False
+        dayNum -= 1
+        if self.calendarDblArr[employeeNum][dayNum] == "___": return False
         else: return True
 
     def isShiftTypeFilled(self, dayNum, shiftTypeNum):
@@ -82,8 +72,7 @@ class calendarDS:
                 return True
         return False
     
-    @adjustDayNum
-    def unavailableEmployees(self, dayNum, unavailableNum):
+    def unavailableEmployees(self, dayNum, dayOffSymbol):
         """
         Returns list of employees whom are unavailable for the day
 
@@ -92,13 +81,21 @@ class calendarDS:
         :return: List of employees whose status matches the unavailableNum
         :rtype: List
         """
+        dayNum -= 1
         unavailable = []
         for a in range(self.numEmployees):
-            if (self.calendarDblArr[a][dayNum] == unavailableNum):
+            if (self.calendarDblArr[a][dayNum] == dayOffSymbol):
                 unavailable.append(a)
         return unavailable
 
-
-
-myCalender = calendarDS(5,2023,12)
-print(myCalender.getShiftType(12,4))
+    def toString(self):
+        a = 0
+        for aStaff in self.calendarDblArr:
+            print(f"{a}: ", end="")
+            a += 1
+            b = 1
+            for day in aStaff:
+                print(f"({b}) {day}", end=" ")
+                b += 1
+            print("", end="\n")
+                

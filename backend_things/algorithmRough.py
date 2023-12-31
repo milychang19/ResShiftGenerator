@@ -14,13 +14,13 @@ MAXNUMDAYS = 31
 testData = [
     {"numID": 0, "stuID": 86572, "stuName": "Emily", "timeOff": [13,14,29,3,10], "PH1": 3, "NH2": 5},
     {"numID": 1, "stuID": 75432, "stuName": "Richard", "timeOff": [13,14,25,19,9], "PH1": 4, "NH2": 5},
-    {"numID": 2, "stuID": 23758, "stuName": "Molin", "timeOff": [14,16,7,9,23], "PH1": 3, "NH2": 4},
+    {"numID": 2, "stuID": 23758, "stuName": "Molin", "timeOff": [14,16,7,9,23], "PH1": 5, "NH2": 4},
     {"numID": 3, "stuID": 76546, "stuName": "Drake", "timeOff": [13,5,1,7,28], "PH1": 5, "NH2": 3},
-    {"numID": 4, "stuID": 65789, "stuName": "Cardib", "timeOff": [5,17,18,21,27], "PH1": 4, "NH2": 3}
+    {"numID": 4, "stuID": 65789, "stuName": "Cardib", "timeOff": [5,17,18,21,27], "PH1": 3, "NH2": 3}
 ]
 
 #gotta figure out how to dynamically change this depending on team and stuff
-listOfShiftTypes = ["PH1", "NH1"]
+listOfShiftTypes = ["PH1", "NH2"]
 
 staff_df = pd.DataFrame(testData)
 
@@ -51,17 +51,27 @@ with open("residence.csv", mode="w", newline='') as csvFile:
         CSVdict.writerow(building)
 '''
 
-
-
-def findMinShift(listOfStaff, shiftType):
+def fillDaysOffCalendar(listOfStaff, calendar):
     '''
-    A general sorter that sorts the listOfStaff based off of requested shift type
+    Fills data structure with days off
+
+    :param listOfStaff: It's the list of dicts that holds info of all the peeps (staff)
+    :param calendar: The data structure
+    '''
+    for staff in listOfStaff:
+        for dayOff in staff["timeOff"]:
+            calendar.assignEmployeeShift(staff["numID"], dayOff, "OFF")
+
+
+def findMinShiftCount(listOfStaff, shiftType):
+    '''
+    Finds the minimum assigned shift type based off of shift type
 
     :param listOfStaff: It's the list of dicts that holds info of all the peeps (staff)
     :param shiftType: The shift type (like 1st pack holder)
 
-    :rtype: list of dicts
-    :return: listOfStaff but sorted in ascending order based off of shift type already assigned
+    :rtype: int
+    :return: magnitude of minimum assigned shift type
     '''
     minShiftNum = listOfStaff[0][shiftType]
     for staff in listOfStaff:
@@ -70,16 +80,18 @@ def findMinShift(listOfStaff, shiftType):
         
     return minShiftNum
 
-def subarrayOfShiftType(listOfStaff, shiftType, minShiftCount):
+def subarrayOfShiftType(listOfStaff, shiftType, shiftCount):
     subarrayOfStaff = []
     for staff in listOfStaff:
-        if staff[shiftType] == minShiftCount:
+        if staff[shiftType] == shiftCount:
             subarrayOfStaff.append(staff)
     print(subarrayOfStaff)
+    print(f"Count: {shiftCount}")
+    print(f"Type: {shiftType}")
     return subarrayOfStaff
 
 
-def fillDaysOff(listOfStaff, numDays):
+def fillDaysOffList(listOfStaff, numDays):
     '''
     ***.items() makes the key-value pairs in a dict into a tuple
     ***entry in the lambda function is just the keyvalue pair (or the tuple since we used .items())
@@ -98,9 +110,8 @@ def fillDaysOff(listOfStaff, numDays):
         for staff in listOfStaff:
             if a+1 in staff["timeOff"]: listOfDaysOff[a+1] += 1
     listOfDaysOff = sorted(listOfDaysOff.items(), key=lambda entry: entry[1], reverse=True)
-    print(f"DAY NUM: {numDays}")
-    print(listOfDaysOff)
     return listOfDaysOff
+
 def myCoolHashFunc(index, bound):
     if (bound != 0):
         return index % bound
@@ -110,13 +121,15 @@ def myCoolHashFunc(index, bound):
 def main():
     ds = calendarDS(len(testData), YEAR, MONTH) 
 
-    sortedDaysOff = fillDaysOff(testData, ds.getNumDays())
+    fillDaysOffCalendar(testData,ds)
+
+    sortedDaysOff = fillDaysOffList(testData, ds.getNumDays())
 
     for a in sortedDaysOff:
         dayNum = a[0]
 
         for shiftType in listOfShiftTypes:
-            minShiftCount = findMinShift(testData, shiftType)
+            minShiftCount = findMinShiftCount(testData, shiftType)
             staffAssigned = False
             oopsiePoopsieCounter = 0
             randStartPoint = random.randint(0,len(testData))
@@ -124,19 +137,26 @@ def main():
             while staffAssigned is False:
                 subarrayOfStaff = subarrayOfShiftType(testData, shiftType, minShiftCount)
                 indexOfStaff = subarrayOfStaff[myCoolHashFunc(randStartPoint + oopsiePoopsieCounter, len(subarrayOfStaff))]["numID"]
+                print(f"Index: {indexOfStaff}")
 
-                if indexOfStaff not in ds.unavailableEmployees(dayNum,0) and ds.isEmployeeAssigned(indexOfStaff,dayNum) is False:
+                if indexOfStaff not in ds.unavailableEmployees(dayNum,"OFF") and ds.isEmployeeAssigned(indexOfStaff,dayNum) is False:
+                    print(f"Index Assigned: {indexOfStaff}",end="\n\n")
                     ds.assignEmployeeShift(indexOfStaff,dayNum,shiftType)
+                    testData[indexOfStaff][shiftType] += 1
+                    staffAssigned = True
                 else:
+                    print("entered else", end="\n\n")
                     oopsiePoopsieCounter += 1
                     if oopsiePoopsieCounter >= len(subarrayOfStaff):
                         minShiftCount += 1
                         oopsiePoopsieCounter = 0
+    ds.toString()
+    for staff in testData:
+        print(staff)
     
-
-
-
 main()
+
+
 
 
 
