@@ -102,41 +102,6 @@ print(staff_data.get_first_pack_holder())
 
 
 '''
-    def get_df():
-        building = get_building_team(self)
-        staff_df = open_file(building)
-        return staff_df
-    
-    def get_column(df, column_name):
-        return df[column_name]
-
-    def get_first_pack_holder():
-        df = get_df()
-        return get_column(df, 'First Pack Holder')
-
-    def get_second_pack_holder():
-        df = get_df()
-        return get_column(df, 'Second Pack Holder')
-
-    def get_first_pack_non():
-        df = get_df()
-        return get_column(df, 'First Pack')
-
-    def get_second_pack_non():
-        df = get_df()
-        return get_column(df, 'Second Pack')
-
-    def get_backup():
-        df = get_df()
-        return get_column(df, 'Backup')
-
-    def set_total():
-        df = get_df()
-        df["Total_shifts"] = df['Second Pack Holder'] + df['First Pack'] + df['Second Pack'] + df['Backup']
-
-
-
-
     def other():
         num = staff_df[staff_df['PH'] > 3]
         try:
