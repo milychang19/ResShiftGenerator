@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import csv
 import os
 
@@ -28,7 +29,7 @@ class FileManager:
             print("You have no files for any buildings")    
         else: 
             count = 1
-            num_lists = []
+            #num_lists = []
             print("These are the building teams available: ")
             print_list = list(dict.fromkeys(print_list))
             #iterate through the list of files
@@ -54,8 +55,8 @@ class FileManager:
 
 
     def get_building_team(self):
-        path = "../buildings_CSV"
-        lists_to_print = self.get_building_files()
+        #path = "../buildings_CSV"
+        #lists_to_print = self.get_building_files()
         team_file_name = self.set_building_team()
         input_file_name = os.path.join(self.csv_path, f"{team_file_name}.csv")
 
@@ -120,7 +121,7 @@ print(staff_data.get_first_pack_holder())
     #add all the values of all the shifts
     def num_shifts():
         ph
-'''
+
 
 class RAs: # Better names: ResAssist, RAProfile, RAInfo
     # Constructor
@@ -139,36 +140,4 @@ class RAs: # Better names: ResAssist, RAProfile, RAInfo
 obj = RAs(1234, "Bruce", {"FH":1, "SH":3,"FN":3,"SN":2})
 #print(obj.__dict__)
 obj.display(obj)
-
-# workers = ["kelly", "eve", "brad"]
-# for worker in workers:
-#     if 
-# print(p.empID)
-# print(p.RAname)
-
-FH_worked = []
-
-#values from the SQL dataebase to implement later on
-# RA_dict = {
-#     "12345":{'i':0,
-#                 "name":"richard",
-#                 "FH":1, 
-#                 "SH":3,
-#                 "FN":3,
-#                 "SN":2},
-#     "56789":{'i':1,
-#                 "name":"emily",
-#                 "FH":3, 
-#                 "SH":1,
-#                 "FN":2,
-#                 "SN":4},
-#     "24789":{'i':2,
-#                 "name":"milky",
-#                 "FH":2, 
-#                 "SH":1,
-#                 "FN":3,
-#                 "SN":4}
-# }
-# print(RA_dict["56789"]["name"], RA_dict["56789"]["SN"])
-
-#for i in 
+'''
