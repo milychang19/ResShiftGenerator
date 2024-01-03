@@ -1,0 +1,132 @@
+body {
+    font-family: Helvetica, 'Franklin Gothic Medium';
+    margin: 0;
+    padding-top: 40px;
+    background-color: #f2efeb;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+.header-home {
+    background-image: url(johnston.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 100px;
+}
+
+.teams {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+main {
+    padding: 10px 50px;
+    margin: 0px 40px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    margin: 40px;
+}
+
+h1 {
+    padding-top: 100px;
+    font-size: 58px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+sub {
+    font-family: 'Noto Serif';
+    font-size: 17px;
+    text-transform: uppercase;
+}
+nav {
+    padding: 10px;
+    text-align: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 20px; 
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+main sign {
+    display: block;
+    font-style: italic;
+    text-align: right;
+    font-family: cursive;
+}
+
+.about-us {
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+.my-button {
+    background-color: #f2f2f2; 
+    width:175px;
+    height: 50px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 15px;
+    border-radius: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.my-button:hover {
+    background-color: lightgrey;
+}
+.button-JAM:hover {
+    background-color: #B8BCDA;
+}
+.button-LAWA:hover {
+    background-color: #BCD293;
+}
+.button-LA:hover {
+    background-color: #DB6969;
+}
+.button-EV:hover {
+    background-color: #8FC1C8;
+}
+.button-ET:hover {
+    background-color: #FFC6A2;
+}
+.button-MOU:hover {
+    background-color: #A4AF6C;
+}
+.button-PRA:hover {
+    background-color: #FBDA9E;
+}
+.button-MAR:hover {
+    background-color: #B0E0EB;
+}
+.button-GOR:hover {
+    background-color: #FD9998;
+}
