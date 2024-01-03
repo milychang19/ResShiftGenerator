@@ -96,37 +96,48 @@ main sign {
     margin-right: 10px;
     font-size: 15px;
     border-radius: 1px;
+    border-color: rgb(229, 225, 225);
     cursor: pointer;
     text-transform: uppercase;
 }
 
 .my-button:hover {
     background-color: lightgrey;
+    transition: 300ms ease-in-out;
 }
-.button-JAM:hover {
+.button-JAM:hover{
     background-color: #B8BCDA;
+    transition: 300ms ease-in-out;
 }
 .button-LAWA:hover {
     background-color: #BCD293;
+    transition: 300ms ease-in-out;
 }
 .button-LA:hover {
     background-color: #DB6969;
+    transition: 300ms ease-in-out;
 }
 .button-EV:hover {
     background-color: #8FC1C8;
+    transition: 300ms ease-in-out;
 }
 .button-ET:hover {
     background-color: #FFC6A2;
+    transition: 300ms ease-in-out;
 }
 .button-MOU:hover {
     background-color: #A4AF6C;
+    transition: 300ms ease-in-out;
 }
 .button-PRA:hover {
     background-color: #FBDA9E;
+    transition: 300ms ease-in-out;
 }
 .button-MAR:hover {
     background-color: #B0E0EB;
+    transition: 300ms ease-in-out;
 }
 .button-GOR:hover {
     background-color: #FD9998;
+    transition: 300ms ease-in-out;
 }
