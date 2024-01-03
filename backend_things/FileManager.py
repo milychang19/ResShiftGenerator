@@ -6,6 +6,7 @@ class FileManager:
     def __init__(self, csv_path):
         self.csv_path = csv_path
         self.staff_df = None
+
     #gets CSV file from the filePath
     #since it's going to be path/to/file/whatever.csv, we want to isolate the whatever.csv
     def get_building_files(self):
@@ -98,7 +99,7 @@ class FileManager:
         self.staff_df["Total_shifts"] = self.staff_df['Second Pack Holder'] + self.staff_df['First Pack'] + self.staff_df['Second Pack'] + self.staff_df['Backup']
 
 staff_data = FileManager("../teamInfo.csv")
-print(staff_data.get_first_pack_holder())
+
 
 
 '''

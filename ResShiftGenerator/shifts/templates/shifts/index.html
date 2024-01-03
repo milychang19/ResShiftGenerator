@@ -1,0 +1,10 @@
+{% extends 'shifts/layout.html' %}
+
+{% block body %}
+    <h1>list of staff</h1>
+    <ul>
+        {% for staff in nut %}
+        <li>Staff Name: {{ staff.stuName }} Pack Holding 1: {{ staff.PH1 }} Non Pack Holding 1: {{ staff.NH1 }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

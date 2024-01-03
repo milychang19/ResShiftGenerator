@@ -132,7 +132,7 @@ def main():
                         oopsiePoopsieCounter = 0
                     if minShiftCount == LIMITONSHIFTS:
                         ds.toString()
-                        print(f"Issue with {dayNum}th. Will need external help")
+                        print(f"Issue with {dayNum}. Will need external help")
                         sys.exit()
     ds.toString()
     for staff in testData:
