@@ -6,7 +6,7 @@ import os
 class FileManager:
     def __init__(self, csv_path):
         self.csv_path = csv_path
-        self.staff_df = None
+        self.staff_df = pd.DataFrame()
     #gets CSV file from the filePath
     #since it's going to be path/to/file/whatever.csv, we want to isolate the whatever.csv
     def get_building_files(self):
@@ -81,26 +81,57 @@ class FileManager:
         return self.staff_df[column_name]
 
     def get_first_pack_holder(self):
-        return self.get_column('First Pack Holder')
+        return self.get_column('PH1')
 
     def get_second_pack_holder(self):
-        return self.get_column('Second Pack Holder')
+        return self.get_column('PH2')
 
     def get_first_pack_non(self):
-        return self.get_column('First Pack')
+        return self.get_column('NH1')
 
     def get_second_pack_non(self):
-        return self.get_column('Second Pack')
+        return self.get_column('NH2')
 
     def get_backup(self):
-        return self.get_column('Backup')
+        return self.get_column('BAC')
 
     def set_total(self):
-        self.staff_df["Total_shifts"] = self.staff_df['Second Pack Holder'] + self.staff_df['First Pack'] + self.staff_df['Second Pack'] + self.staff_df['Backup']
+        self.staff_df["Total_shifts"] = self.staff_df['PH1'] + self.staff_df['NH1'] + self.staff_df['PH2'] + self.staff_df['NH2']
 
-staff_data = FileManager("../teamInfo.csv")
-print(staff_data.get_first_pack_holder())
+#staff_data = FileManager("../teamInfo.csv")
+#print(staff_data.get_first_pack_holder())
 
+def main():
+    # Initialize FileManager with the path to the CSV files
+    staff_data = FileManager("../teamInfo.csv")
+
+    # Get the first pack holder column
+    first_pack_holder = staff_data.get_first_pack_holder()
+    print("First Pack Holder Column:")
+    print(first_pack_holder)
+
+    # Get the building team CSV file
+    building_team_file = staff_data.get_building_team()
+    print("\nBuilding Team CSV File:")
+    print(building_team_file)
+
+    # Open the CSV file and load it into a dataframe
+    staff_df = staff_data.open_file(building_team_file)
+    print("\nStaff DataFrame:")
+    print(staff_df)
+
+    # Get columns from the dataframe
+    if staff_df is not None:
+        ph1_column = staff_data.get_first_pack_holder()
+        print("\nFirst Pack Holder Column from DataFrame:")
+        print(ph1_column)
+
+        # Set the total shifts for each employee
+        staff_data.set_total()
+        print("\nStaff DataFrame with Total Shifts:")
+        print(staff_data.get_df())
+
+main()
 
 '''
     def other():
