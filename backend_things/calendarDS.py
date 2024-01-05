@@ -1,6 +1,10 @@
 import calendar
+import sqlite3
+
+
+
 class calendarDS:
-    def __init__(self, numEmployees, year, month):
+    def __init__(self, year, month):
         """
         Assigns a employee a specific type of shift
 
@@ -8,18 +12,24 @@ class calendarDS:
         :param year: The year in question. (int)
         :param month: The month in question. (int)
         """
-        self.numEmployees = int(numEmployees)
 
         monthTuple = calendar.monthrange(year, month)
         self.startDay = int(monthTuple[0])
-        self.calendarDblArr = [["___" for a in range(monthTuple[1])] for b in range(numEmployees)]
         self.numDays = int(monthTuple[1])
+        self.connection = sqlite3.connect('shifts.sqlite3')
+        self.cursor = self.connection.cursor()
     
-    def getEmployeeShift(self, employeeNum):
-        return self.calendarDblArr[employeeNum]
+    def createTable(self):
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS calendar(
+                dayNum INTEGER,
+                shiftType TEXT NOT NULL,
+                stuID INTEGER NOT NULL
+            )
+        ''')
     
     def getCalendar(self):
-        return self.calendarDblArr
+        return self.cursor
     
     def getStartDay(self):
         return self.getStartDay
@@ -36,13 +46,13 @@ class calendarDS:
 
         :param employeeNum: An index representing the employee. (int)
         :param dayNum: Number representing the day. (int)
-        :return: A shift type represented by an integer
-        :rtype: int
+        :return: A tuple that only contains a string representing the shift type
+        :rtype: singleton
         """
-        dayNum -= 1
-        return self.calendarDblArr[employeeNum][dayNum]
+        self.cursor.execute('SELECT shiftType FROM calendar WHERE stuID = ? AND dayNum = ?', (employeeNum, dayNum))
+        return self.cursor.fetchone()
 
-    def assignEmployeeShift(self, employeeNum, dayNum, shiftTypeNum):
+    def assignEmployeeShift(self, employeeNum, dayNum, shiftType):
         """
         Assigns a employee a specific type of shift
 
@@ -50,27 +60,15 @@ class calendarDS:
         :param dayNum: Number representing the day. (int)
         :param shiftTypeNum: Number representing the shift type. (int)
         """
-        dayNum -= 1
-        self.calendarDblArr[employeeNum][dayNum] = shiftTypeNum
+        self.cursor.execute('INSERT INTO calendar (stuID, dayNum, shiftType) VALUES (?, ?, ?)', (employeeNum, dayNum, shiftType))
+        self.connection.commit()
     
     def isEmployeeAssigned(self, employeeNum, dayNum):
-        dayNum -= 1
-        if self.calendarDblArr[employeeNum][dayNum] == "___": return False
-        else: return True
-
-    def isShiftTypeFilled(self, dayNum, shiftTypeNum):
-        """
-        Checks if there are enough people assigned a shift type for a specific day
-
-        :param dayNum: Number representing the day.(int)
-        :param shiftTypeNum: The number representing the shift type. (int)
-        :return: T/F to see if the shift type quota has been met
-        :rtype: bool
-        """
-        for a in range(self.numEmployees):
-            if (self.calendarDblArr[a][dayNum] == shiftTypeNum):
-                return True
-        return False
+        '''
+        Checks if an employee is assigned or not
+        '''
+        if self.getShiftType(dayNum, employeeNum) is None:   return False
+        else:   return True
     
     def unavailableEmployees(self, dayNum, dayOffSymbol):
         """
@@ -81,26 +79,16 @@ class calendarDS:
         :return: List of employees whose status matches the unavailableNum
         :rtype: List
         """
-        dayNum -= 1
-        unavailable = []
-        for a in range(self.numEmployees):
-            if (self.calendarDblArr[a][dayNum] == dayOffSymbol):
-                unavailable.append(a)
-        return unavailable
+        self.cursor.execute('SELECT stuID FROM calendar WHERE dayNum = ?, shiftType = ?', (dayNum, dayOffSymbol))
+        return self.cursor.fetchall()
+
+    def clearTable(self):
+        self.cursor.execute('DELETE FROM calendar')
 
     def toString(self):
-        a = 0
-        for aStaff in self.calendarDblArr:
-            print(f"{a}: ", end="")
-            a += 1
-            b = 1
-            for day in aStaff:
-                print(f"({b}) {day}", end=" ")
-                b += 1
-            print("", end="\n")
-                
-    def printCalendar(year, month):
-        '''
-        Print the month
-        '''
-        print(calendar.month(year,month))
+        self.cursor.execute('SELECT * FROM calendar')
+        print(self.cursor.fetchall())
+
+db = calendarDS(2024, 1)
+db.clearTable()
+db.toString()
