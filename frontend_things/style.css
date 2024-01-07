@@ -1,5 +1,11 @@
+@font-face {
+    font-family: 'Barlow';
+    src: url('fonts/Barlow-Bold.tff') format('truetype'),
+         url('fonts/Barlow-Regular.tff') format('truetype');
+}
+
 body {
-    font-family: Helvetica, 'Franklin Gothic Medium';
+    font-family: 'Barlow';
     margin: 0;
     padding-top: 40px;
     background-color: #F2EFEB;
@@ -33,7 +39,6 @@ main {
 footer {
     text-align: center;
     padding: 10px;
-    margin: 40px;
 }
 
 h1 {
@@ -50,6 +55,10 @@ h3 {
     font-size: 30px;
 }
 
+h4 {
+    font-style: italic;
+    font-family:;
+}
 sub {
     font-family: 'Noto Serif';
     font-size: 17px;
@@ -96,8 +105,9 @@ main sign {
     margin-right: 10px;
     font-size: 15px;
     border-style: solid;
-    border-radius: 7px;
-    border-color: white;
+    border-radius: 1px;
+    border-color: black;
+    border-width: 2px;
     cursor: pointer;
     text-transform: uppercase;
     position: relative;
@@ -111,7 +121,6 @@ main sign {
     left:0;
     bottom:0;
     background-color: var(--slide-color);
-    border-radius: 7px;
     z-index:-1;
     transition: 300ms ease-in-out;
     transform: scaleX(0);
@@ -120,10 +129,6 @@ main sign {
 
 .btn-effect:hover::before{
     transform: scaleX(1);
-}
-
-.btn-effect:hover{
-    color: white;
 }
 
 .btn-effect{
@@ -162,3 +167,11 @@ main sign {
 .button-GOR:hover {
     --slide-color: #FD9998;
 }
+
+.ft-JAM {
+    background-color: #3F407E;
+}
+
+.footer-text{
+    color: white;
+} 
