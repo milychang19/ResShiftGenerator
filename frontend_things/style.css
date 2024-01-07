@@ -2,7 +2,7 @@ body {
     font-family: Helvetica, 'Franklin Gothic Medium';
     margin: 0;
     padding-top: 40px;
-    background-color: #f2efeb;
+    background-color: #F2EFEB;
 }
 
 header {
@@ -89,55 +89,76 @@ main sign {
 }
 
 .my-button {
-    background-color: #f2f2f2; 
+    background-color: white; 
     width:175px;
     height: 50px;
     padding: 10px 20px;
     margin-right: 10px;
     font-size: 15px;
-    border-radius: 1px;
-    border-color: rgb(229, 225, 225);
+    border-style: solid;
+    border-radius: 7px;
+    border-color: white;
     cursor: pointer;
     text-transform: uppercase;
+    position: relative;
+}
+
+.btn-effect::before {
+    content:'';
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background-color: var(--slide-color);
+    border-radius: 7px;
+    z-index:-1;
+    transition: 300ms ease-in-out;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.btn-effect:hover::before{
+    transform: scaleX(1);
+}
+
+.btn-effect:hover{
+    color: white;
+}
+
+.btn-effect{
+    z-index:1;
+    transition: color 300ms ease-in-out;
 }
 
 .my-button:hover {
-    background-color: lightgrey;
+    background-color: white;
     transition: 300ms ease-in-out;
 }
 .button-JAM:hover{
-    background-color: #B8BCDA;
-    transition: 300ms ease-in-out;
+    --slide-color: #B8BCDA;
 }
 .button-LAWA:hover {
-    background-color: #BCD293;
-    transition: 300ms ease-in-out;
+    --slide-color: #BCD293;
 }
 .button-LA:hover {
-    background-color: #DB6969;
-    transition: 300ms ease-in-out;
+    --slide-color: #DB6969;
 }
 .button-EV:hover {
-    background-color: #8FC1C8;
-    transition: 300ms ease-in-out;
+    --slide-color: #8FC1C8;
 }
 .button-ET:hover {
-    background-color: #FFC6A2;
-    transition: 300ms ease-in-out;
+    --slide-color: #FFC6A2;
 }
 .button-MOU:hover {
-    background-color: #A4AF6C;
-    transition: 300ms ease-in-out;
+    --slide-color: #A4AF6C;
 }
 .button-PRA:hover {
-    background-color: #FBDA9E;
-    transition: 300ms ease-in-out;
+    --slide-color: #FBDA9E;
 }
 .button-MAR:hover {
-    background-color: #B0E0EB;
-    transition: 300ms ease-in-out;
+    --slide-color: #B0E0EB;
 }
 .button-GOR:hover {
-    background-color: #FD9998;
-    transition: 300ms ease-in-out;
+    --slide-color: #FD9998;
 }
