@@ -1,0 +1,177 @@
+@font-face {
+    font-family: 'Barlow';
+    src: url('fonts/Barlow-Bold.tff') format('truetype'),
+         url('fonts/Barlow-Regular.tff') format('truetype');
+}
+
+body {
+    font-family: 'Barlow';
+    margin: 0;
+    padding-top: 40px;
+    background-color: #F2EFEB;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+.header-home {
+    background-image: url(johnston.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 100px;
+}
+
+.teams {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+main {
+    padding: 10px 50px;
+    margin: 0px 40px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+}
+
+h1 {
+    padding-top: 100px;
+    font-size: 58px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+h4 {
+    font-style: italic;
+}
+
+sub {
+    font-family: 'Noto Serif';
+    font-size: 17px;
+    text-transform: uppercase;
+}
+nav {
+    padding: 10px;
+    text-align: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 20px; 
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+main sign {
+    display: block;
+    font-style: italic;
+    text-align: right;
+    font-family: cursive;
+}
+
+.about-us {
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+.my-button {
+    background-color: white; 
+    width:175px;
+    height: 50px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 15px;
+    border-style: solid;
+    border-radius: 1px;
+    border-color: black;
+    border-width: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.btn-effect::before {
+    content:'';
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background-color: var(--slide-color);
+    z-index:-1;
+    transition: 300ms ease-in-out;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.btn-effect:hover::before{
+    transform: scaleX(1);
+}
+
+.btn-effect{
+    z-index:1;
+    transition: color 300ms ease-in-out;
+}
+
+.my-button:hover {
+    background-color: white;
+    transition: 300ms ease-in-out;
+}
+.button-JAM:hover{
+    --slide-color: #B8BCDA;
+}
+.button-LAWA:hover {
+    --slide-color: #BCD293;
+}
+.button-LA:hover {
+    --slide-color: #DB6969;
+}
+.button-EV:hover {
+    --slide-color: #8FC1C8;
+}
+.button-ET:hover {
+    --slide-color: #FFC6A2;
+}
+.button-MOU:hover {
+    --slide-color: #A4AF6C;
+}
+.button-PRA:hover {
+    --slide-color: #FBDA9E;
+}
+.button-MAR:hover {
+    --slide-color: #B0E0EB;
+}
+.button-GOR:hover {
+    --slide-color: #FD9998;
+}
+
+.ft-JAM {
+    background-color: #3F407E;
+}
+
+.footer-text{
+    color: white;
+} 

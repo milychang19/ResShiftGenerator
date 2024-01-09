@@ -4,6 +4,19 @@ import pandas as pd
 
 # Create your views here.
 
+def home(request):
+    return render(request, 'home.html')
+
+def about_us(request):
+    return render(request, 'about-us.html')
+
+def generator(request):
+    return render(request, 'generator.html')
+
+def res_team(request):
+    return render(request, 'res-team.html')
+
+
 
 # Inside csvapp/views.py
 def upload_csv(request):
