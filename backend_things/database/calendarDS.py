@@ -18,13 +18,15 @@ class calendarDS:
         self.numDays = int(monthTuple[1])
         self.connection = sqlite3.connect('shifts.sqlite3')
         self.cursor = self.connection.cursor()
+        self.createTable()
     
     def createTable(self):
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS calendar(
-                dayNum INTEGER,
+                dayNum INTEGER PRIMARY KEY,
                 shiftType TEXT NOT NULL,
                 stuID INTEGER NOT NULL
+                FOREIGN KEY (stuID) REFERENCES staff(stuID)
             )
         ''')
     
@@ -88,7 +90,3 @@ class calendarDS:
     def toString(self):
         self.cursor.execute('SELECT * FROM calendar')
         print(self.cursor.fetchall())
-
-db = calendarDS(2024, 1)
-db.clearTable()
-db.toString()

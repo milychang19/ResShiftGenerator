@@ -1,4 +1,4 @@
-from calendarDS import calendarDS
+from database.calendarDS import calendarDS, staffDS
 import random
 import sys
 
@@ -25,77 +25,13 @@ testData = testData = [
 ]
 
 #gotta figure out how to dynamically change this depending on team and stuff
-listOfShiftTypes = ["PH1", "NH1", "PH2", "NH2", "BCK"]
-
-def fillDaysOffCalendar(listOfStaff, calendar):
-    '''
-    Fills data structure with days off
-
-    :param listOfStaff: It's the list of dicts that holds info of all the peeps (staff)
-    :param calendar: The data structure
-    '''
-    for staff in listOfStaff:
-        for dayOff in staff["timeOff"]:
-            calendar.assignEmployeeShift(staff["numID"], dayOff, "OFF")
-
-
-def findMinShiftCount(listOfStaff, shiftType):
-    '''
-    Finds the minimum assigned shift type based off of shift type
-
-    :param listOfStaff: It's the list of dicts that holds info of all the peeps (staff)
-    :param shiftType: The shift type (like 1st pack holder)
-
-    :rtype: int
-    :return: magnitude of minimum assigned shift type
-    '''
-    minShiftNum = listOfStaff[0][shiftType]
-    for staff in listOfStaff:
-        if staff[shiftType] < minShiftNum:
-            minShiftNum = staff[shiftType]
-        
-    return minShiftNum
-
-def subarrayOfShiftType(listOfStaff, shiftType, shiftCount):
-    '''
-    Creates a subarray of staff based off of shift type and shift count
-
-    :param listOfStaff: It's the list of dicts that holds info of all the peeps (staff)
-    :param shiftType: The shift type (like 1st pack holder)
-    :param shiftCount: Number of shifts worked/assigned for a specific shift type
-    '''
-    subarrayOfStaff = []
-    for staff in listOfStaff:
-        if staff[shiftType] == shiftCount:
-            subarrayOfStaff.append(staff)
-    return subarrayOfStaff
-
-
-def fillDaysOffList(listOfStaff, numDays):
-    '''
-    ***.items() makes the key-value pairs in a dict into a tuple
-    ***entry in the lambda function is just the keyvalue pair (or the tuple since we used .items())
-
-    This creates and sorts a list of pairs of days off in descending order based off most requested days
-
-    :param listOfStaff: It's the list of dicts that holds info of all the peeps (staff)
-    :param numDays: The number of days in the month of interest
-
-    :rtype: list of pairs
-    :return: The most requested days off sorted in descending order
-    '''
-    listOfDaysOff = {}
-    for a in range(numDays):
-        listOfDaysOff[a+1] = 0
-        for staff in listOfStaff:
-            if a+1 in staff["timeOff"]: listOfDaysOff[a+1] += 1
-    listOfDaysOff = sorted(listOfDaysOff.items(), key=lambda entry: entry[1], reverse=True)
-    return listOfDaysOff
+listOfShiftTypes = ['ph1', 'nh1', 'ph2', 'nh2', 'backup']
 
 def myCoolHashFunc(index, bound):
     if (bound != 0):
         return index % bound
     return 0
+
 
 
 def main():
