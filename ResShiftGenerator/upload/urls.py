@@ -8,5 +8,4 @@ urlpatterns = [
     path('generator/', views.generator, name = 'generator'),
     path('guide/', views.user_guide, name = 'guide'),
     path('teams/', views.res_team, name = 'teams'),
-    path('csv/', views.upload_csv, name = 'csv'),
 ]
