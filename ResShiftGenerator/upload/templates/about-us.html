@@ -10,10 +10,11 @@
 <body>
     <nav>
         <ul>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="res-team.html">Residence Teams</a></li>
-          <li><a href="user-guide.html">User Guide</a></li>
-          <li><a href="about-us.html">About Us</a></li>
+            <li><a href="{{ request.path }}">Home</a></li>
+            <li><a href="{% url 'teams' %}">Residence Teams</a></li>
+            <li><a href="{% url 'guide' %}">User Guide</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'generator' %}">Generator</a></li>
         </ul>
     </nav>
     <main>

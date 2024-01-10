@@ -16,6 +16,8 @@ def generator(request):
 def res_team(request):
     return render(request, 'res-team.html')
 
+def user_guide(request):
+    return render(request, 'user-guide.html')
 
 
 # Inside csvapp/views.py
