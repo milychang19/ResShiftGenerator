@@ -21,12 +21,13 @@ class calendarDS:
         self.createTable()
     
     def createTable(self):
+        self.clearTable()
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS calendar(
-                dayNum INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                dayNum INTEGER,
                 shiftType TEXT NOT NULL,
                 stuID INTEGER NOT NULL
-                FOREIGN KEY (stuID) REFERENCES staff(stuID)
             )
         ''')
     
@@ -85,7 +86,7 @@ class calendarDS:
         return self.cursor.fetchall()
 
     def clearTable(self):
-        self.cursor.execute('DELETE FROM calendar')
+        self.cursor.execute('DROP TABLE IF EXISTS calendar')
 
     def toString(self):
         self.cursor.execute('SELECT * FROM calendar')
