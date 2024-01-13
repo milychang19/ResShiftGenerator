@@ -5,12 +5,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Residence Staff Schedule Generator</title>
+    <!-- <h1 class="display-4" style="background: linear-gradient(to right, lime, rgb(60, 72, 138)); font-size: 110px; -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: bold;">RLS-Shift-Creator</h1> -->
+    <div class="jumbotron">
+        <centre>
+            <h1 class="display-4" style="background: linear-gradient(to left, lime, purple); font-size: 80px; -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: bold;">Residence Staff Schedule Generator</h1>
+        </centre>
+    </div>
     <link rel="stylesheet" type = "text/css" href="{% static 'style.css' %}">
     <!-- Assuming 'style.css' is a static file in your Django project -->
 
 </head>
 
+<script>
+    const sentences = ["Brought to you by: Emily Chang, Molin Li, Richard Cui.", "your fav RA's"];
+    const typewriterText = document.getElementById("typewriter-text");
+
+    let sentenceIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+        if (sentenceIndex < sentences.length) {
+            if (charIndex < sentences[sentenceIndex].length) {
+                typewriterText.innerHTML += sentences[sentenceIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            } else {
+                // Move to the next sentence after 2 seconds
+                setTimeout(erase, 2000);
+            }
+        }
+    }
+
+    // Start the typewriter effect
+    type();
+</script>
 
 <body>
 
@@ -26,11 +54,12 @@
     <header class="header-home">
         <sub>University of Guelph</sub>
         <h1>Residence Life Schedule<br>Generator</h1>
-        <a href="{% url 'teams' %}"><button class="my-button btn-effect button-JAM">Start</button></a>
+        <a href="{% url 'teams' %}"><button class="my-button btn-effect button-START">Start</button></a>
     </header>
     
     <footer>
         <p>&copy; 2024 Residence Life Staff Schedule Generator. No rights reserved.</p>
     </footer>
 </body>
+
 </html>

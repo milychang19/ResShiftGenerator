@@ -140,26 +140,29 @@ main sign {
     background-color: white;
     transition: 300ms ease-in-out;
 }
+.button-START:hover{
+    --slide-color: #dc5858;
+}
 .button-JAM:hover{
     --slide-color: #B8BCDA;
 }
 .button-LAWA:hover {
-    --slide-color: #BCD293;
+    --slide-color: #a1d481;
 }
 .button-LA:hover {
-    --slide-color: #DB6969;
+    --slide-color: #f8e57c;
 }
 .button-EV:hover {
-    --slide-color: #8FC1C8;
+    --slide-color: #77cab3;
 }
 .button-ET:hover {
-    --slide-color: #FFC6A2;
+    --slide-color: #dc8669;
 }
 .button-MOU:hover {
     --slide-color: #A4AF6C;
 }
 .button-PRA:hover {
-    --slide-color: #FBDA9E;
+    --slide-color: #f0b86f;
 }
 .button-MAR:hover {
     --slide-color: #B0E0EB;
