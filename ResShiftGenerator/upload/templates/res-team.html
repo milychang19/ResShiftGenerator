@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Residence Teams</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{{ request.path }}">Residence Teams</a></li>
+            <li><a href="{% url 'guide' %}">User Guide</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'generator' %}">Generator</a></li>
+
+        </ul>
+    </nav>
+    <main>
+        <h2>Residence Teams</h2>
+        <section class="teams">
+            <h3>North</h3>
+            <!-- <a href=generator.html><button class="my-button btn-effect button-JAM">JAM</button></a> -->
+            <button class="my-button btn-effect button-JAM">JAM</button>
+            <button class="my-button btn-effect button-LAWA">LAWA</button>
+            <button class="my-button btn-effect button-LA">LA</button>
+            <h3>East</h3>
+            <button class="my-button btn-effect button-EV">East Village</button>
+            <button class="my-button btn-effect button-ET">East Towers</button>
+            <h3>South</h3>
+            <button class="my-button btn-effect button-MOU">Mountain</button>
+            <button class="my-button btn-effect button-PRA">Prairie</button>
+            <button class="my-button btn-effect button-MAR">Maritime</button>
+            <button class="my-button btn-effect button-GOR">Gordan</button>
+        </section>
+    </main>
+    </body>
+</html>
