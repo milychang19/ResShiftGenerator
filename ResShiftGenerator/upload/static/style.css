@@ -27,8 +27,44 @@ header {
 }
 
 .teams {
+    background-image: url(all-rls.png);
+    background-size: cover;
+    background-position: center;
+    display: block;
+    margin: auto;
+    color: maroon;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #0fa,
+        0 0 82px #0fa,
+        0 0 92px #0fa,
+        0 0 102px #0fa,
+        0 0 151px #0fa,
+        0 0 179px #0fa,
+        0 0 234px #0fa;
+    height: 400px;
     padding-right: 50px;
     padding-left: 50px;
+    padding: 100px;
+    /* background-color: white; */
+    text-decoration: none; 
+}
+
+
+
+.rlspic {
+    background-image: url(all-rls.png);
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    height: 400px;
+    width: 900px;
+    margin: auto; /* To horizontally center the container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 main {
