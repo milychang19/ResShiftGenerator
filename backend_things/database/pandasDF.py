@@ -68,13 +68,11 @@ class csvtosql:
             sys.exit("Invalid shift type")        
         return listOfStaffID    
     
-    def findMinShiftCount(self, shiftType):
-        minShiftCount = self.MAXSHIFTS
-        for index in self.dataframe.index:
-            aShiftCount = self.dataframe[shiftType][index]
-            if aShiftCount < minShiftCount:
-                minShiftCount = aShiftCount
-        return minShiftCount
+    def getShiftCountList(self, shiftType):
+        shiftCountList = self.dataframe.loc[:, shiftType].to_list()
+        shiftCountList.sort()
+        shiftCountList = list(dict.fromkeys(shiftCountList))
+        return shiftCountList
     def myCoolHashFunc(self, nut, bound):
         if (bound != 0):
             return nut % bound
@@ -82,23 +80,25 @@ class csvtosql:
     def runAlgorithm(self, numDays):
         for day in self.createPrioList(numDays):
             for shiftType in self.getShiftTypes():
-                minShiftCount = self.findMinShiftCount(shiftType)
-                oopsiepoopsiecounter = 0
                 staffAssigned = False
                 randNum = random.randint(0,len(self.dataframe))
-                while staffAssigned is False:
-                    prioStaff = self.sublistOfStaff(shiftType, minShiftCount)
-                    staffID = prioStaff[self.myCoolHashFunc(randNum + oopsiepoopsiecounter, len(prioStaff))]
-                    if self.calendar.isEmployeeAssigned(staffID, day) is False and staffID not in self.calendar.unavailableEmployees(day, 'off'):
-                        self.calendar.assignEmployeeShift(staffID, day, shiftType)
-                        self.dataframe[shiftType][staffID] += 1
-                        staffAssigned = True
-                    else:
-                        oopsiepoopsiecounter += 1
-                        if oopsiepoopsiecounter >= len(prioStaff):
-                            minShiftCount += 1
-                        elif minShiftCount >= self.MAXSHIFTS:
-                            sys.exit(f"Issue with day {day}. Try restarting program or clear schedule conflict")
+
+                for shiftCount in self.getShiftCountList(shiftType):
+                    if staffAssigned:
+                        break
+                    prioStaff = self.sublistOfStaff(shiftType, shiftCount)
+                    #print(f"NUM: {shiftCount} SHIFT TYPE: {shiftType} Sublist of staff: {prioStaff}")
+                    for a in range(len(prioStaff)):
+                        staffID = prioStaff[self.myCoolHashFunc(randNum + a, len(prioStaff))]
+                        #print(f"CURRENT stafID: {staffID}")
+                        if self.calendar.isEmployeeAssigned(staffID, day) is False and staffID not in self.calendar.unavailableEmployees(day, 'off'):
+                            self.calendar.assignEmployeeShift(staffID, day, shiftType)
+                            self.dataframe.loc[staffID, shiftType] += 1
+                            #print(f"ASSIGNED!!: {staffID}")
+                            staffAssigned = True
+                            break
+                if not staffAssigned:
+                    sys.exit(f"Issue with day {day}. Try restarting program or clear schedule conflict")
 
     def printCal(self):
         self.calendar.toString()
@@ -110,3 +110,5 @@ class csvtosql:
 nut = csvtosql('mycsvfile.csv')
 nut.fillDaysOff()
 nut.runAlgorithm(31)
+#nut.printCal()
+nut.printDF()

@@ -90,4 +90,5 @@ class calendarDS:
 
     def toString(self):
         self.cursor.execute('SELECT * FROM calendar ORDER BY dayNum')
-        print(self.cursor.fetchall())
+        for day in self.cursor.fetchall():
+            print(day)
