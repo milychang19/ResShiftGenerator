@@ -1,12 +1,17 @@
 import pandas as pd
+import numpy as np
 import csv
 import os
 
 class FileManager:
     def __init__(self, csv_path):
         self.csv_path = csv_path
+<<<<<<< HEAD
         self.staff_df = None
 
+=======
+        self.staff_df = pd.DataFrame()
+>>>>>>> main
     #gets CSV file from the filePath
     #since it's going to be path/to/file/whatever.csv, we want to isolate the whatever.csv
     def get_building_files(self):
@@ -29,7 +34,7 @@ class FileManager:
             print("You have no files for any buildings")    
         else: 
             count = 1
-            num_lists = []
+            #num_lists = []
             print("These are the building teams available: ")
             print_list = list(dict.fromkeys(print_list))
             #iterate through the list of files
@@ -55,8 +60,8 @@ class FileManager:
 
 
     def get_building_team(self):
-        path = "../buildings_CSV"
-        lists_to_print = self.get_building_files()
+        #path = "../buildings_CSV"
+        #lists_to_print = self.get_building_files()
         team_file_name = self.set_building_team()
         input_file_name = os.path.join(self.csv_path, f"{team_file_name}.csv")
 
@@ -81,26 +86,62 @@ class FileManager:
         return self.staff_df[column_name]
 
     def get_first_pack_holder(self):
-        return self.get_column('First Pack Holder')
+        return self.get_column('PH1')
 
     def get_second_pack_holder(self):
-        return self.get_column('Second Pack Holder')
+        return self.get_column('PH2')
 
     def get_first_pack_non(self):
-        return self.get_column('First Pack')
+        return self.get_column('NH1')
 
     def get_second_pack_non(self):
-        return self.get_column('Second Pack')
+        return self.get_column('NH2')
 
     def get_backup(self):
-        return self.get_column('Backup')
+        return self.get_column('BAC')
 
     def set_total(self):
-        self.staff_df["Total_shifts"] = self.staff_df['Second Pack Holder'] + self.staff_df['First Pack'] + self.staff_df['Second Pack'] + self.staff_df['Backup']
+        self.staff_df["Total_shifts"] = self.staff_df['PH1'] + self.staff_df['NH1'] + self.staff_df['PH2'] + self.staff_df['NH2']
 
+<<<<<<< HEAD
 staff_data = FileManager("../teamInfo.csv")
 
+=======
+#staff_data = FileManager("../teamInfo.csv")
+#print(staff_data.get_first_pack_holder())
+>>>>>>> main
 
+def main():
+    # Initialize FileManager with the path to the CSV files
+    staff_data = FileManager("../teamInfo.csv")
+
+    # Get the first pack holder column
+    first_pack_holder = staff_data.get_first_pack_holder()
+    print("First Pack Holder Column:")
+    print(first_pack_holder)
+
+    # Get the building team CSV file
+    building_team_file = staff_data.get_building_team()
+    print("\nBuilding Team CSV File:")
+    print(building_team_file)
+
+    # Open the CSV file and load it into a dataframe
+    staff_df = staff_data.open_file(building_team_file)
+    print("\nStaff DataFrame:")
+    print(staff_df)
+
+    # Get columns from the dataframe
+    if staff_df is not None:
+        ph1_column = staff_data.get_first_pack_holder()
+        print("\nFirst Pack Holder Column from DataFrame:")
+        print(ph1_column)
+
+        # Set the total shifts for each employee
+        staff_data.set_total()
+        print("\nStaff DataFrame with Total Shifts:")
+        print(staff_data.get_df())
+
+main()
 
 '''
     def other():
@@ -121,7 +162,7 @@ staff_data = FileManager("../teamInfo.csv")
     #add all the values of all the shifts
     def num_shifts():
         ph
-'''
+
 
 class RAs: # Better names: ResAssist, RAProfile, RAInfo
     # Constructor
@@ -140,36 +181,4 @@ class RAs: # Better names: ResAssist, RAProfile, RAInfo
 obj = RAs(1234, "Bruce", {"FH":1, "SH":3,"FN":3,"SN":2})
 #print(obj.__dict__)
 obj.display(obj)
-
-# workers = ["kelly", "eve", "brad"]
-# for worker in workers:
-#     if 
-# print(p.empID)
-# print(p.RAname)
-
-FH_worked = []
-
-#values from the SQL dataebase to implement later on
-# RA_dict = {
-#     "12345":{'i':0,
-#                 "name":"richard",
-#                 "FH":1, 
-#                 "SH":3,
-#                 "FN":3,
-#                 "SN":2},
-#     "56789":{'i':1,
-#                 "name":"emily",
-#                 "FH":3, 
-#                 "SH":1,
-#                 "FN":2,
-#                 "SN":4},
-#     "24789":{'i':2,
-#                 "name":"milky",
-#                 "FH":2, 
-#                 "SH":1,
-#                 "FN":3,
-#                 "SN":4}
-# }
-# print(RA_dict["56789"]["name"], RA_dict["56789"]["SN"])
-
-#for i in 
+'''
