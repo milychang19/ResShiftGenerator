@@ -3,7 +3,7 @@ import sqlite3
 import ast
 import sys
 import random
-from calendarDS import calendarDS
+from shifts.calendarDS import calendarDS
 
 YEAR = 2024
 MONTH = 3
@@ -101,14 +101,10 @@ class csvtosql:
                     sys.exit(f"Issue with day {day}. Try restarting program or clear schedule conflict")
 
     def printCal(self):
-        self.calendar.toString()
+        return self.calendar.toString()
     def deleteCal(self):
         self.calendar.clearTable()
     def printDF(self):
         print(self.dataframe)
-    
-nut = csvtosql('mycsvfile.csv')
-nut.fillDaysOff()
-nut.runAlgorithm(31)
-#nut.printCal()
-nut.printDF()
+    def getDF(self):
+        return self.dataframe
