@@ -1,4 +1,4 @@
-stuID,stuName,timeOff,ph1,nh1,ph2,nh2,backup
+stuID,stuName,timeOff,ph1,nh1,ph2,nh2,bck
 1325,John,"[2, 5, 8, 25, 30]",10,5,8,3,7
 2113,Alice,"[3, 6, 9, 13, 19]",8,4,7,2,6
 3448,Bob,"[1, 4, 7, 18, 12]",12,6,9,4,8
