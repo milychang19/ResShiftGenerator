@@ -1,3 +1,6 @@
 ## Dependencies 
+
 pip install django
 pip install pandas
+pip install sqlite3
+
