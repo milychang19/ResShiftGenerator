@@ -1,0 +1,9 @@
+{% extends 'shifts/layout.html' %}
+
+{% block body %}
+    <ul>
+        {% for calendar in nut %}
+        <li>{{ calendar }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
