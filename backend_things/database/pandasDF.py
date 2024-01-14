@@ -2,15 +2,20 @@ import pandas as pd
 import sqlite3
 import ast
 import sys
+import random
 from calendarDS import calendarDS
 
 YEAR = 2024
-MONTH = 2
+MONTH = 3
 
 class csvtosql:
     def __init__(self, csvfile):
-        self.dataframe = pd.read_csv(csvfile)
+        try:
+            self.dataframe = pd.read_csv(csvfile, index_col="stuID")
+        except FileNotFoundError as e:
+            sys.exit("No such file")
         self.calendar = calendarDS(YEAR, MONTH)
+        self.MAXSHIFTS = 50
     
     def getShiftTypes(self):
         '''
@@ -25,8 +30,12 @@ class csvtosql:
         return listOfShiftTypes
 
             
-    def getStaffInfo(self, index):
-        return self.dataframe.loc[index]
+    def getTimeOff(self, index):
+        try:
+            timeOff = ast.literal_eval(self.dataframe["timeOff"][index])
+        except Exception as e:
+            sys.exit("Error with timeOff")
+        return timeOff
     def createPrioList(self, numDays):
         '''
         Creates and sorts a list of days off in descending order based off most requested days
@@ -37,29 +46,60 @@ class csvtosql:
         :return: The most requested days off sorted in descending order
         '''
         listOfDaysOff = dict.fromkeys(range(1,numDays+1), 0)
-        for staffIndex in range(len(self.dataframe)):
-            staff = self.getStaffInfo(staffIndex)
-            try:
-                timeOff = ast.literal_eval(staff.timeOff)
-            except Exception as e:
-                sys.exit("Error with timeOff")
-
-            for dayOff in timeOff:
+        for index in self.dataframe.index:
+            for dayOff in self.getTimeOff(index):
                 listOfDaysOff[dayOff] += 1
         listOfDaysOff = sorted(listOfDaysOff.items(), key = lambda x: x[1], reverse=True)
         listOfDaysOff = [tup[0] for tup in listOfDaysOff]
         return listOfDaysOff
 
     def fillDaysOff(self):
-        for staffIndex in range(len(self.dataframe)):
-            staff = self.getStaffInfo(staffIndex)
-            try:
-                timeOff = ast.literal_eval(staff.timeOff)
-            except Exception as e:
-                sys.exit("Error with timeOff")
-            for dayOff in timeOff:
-                self.calendar.assignEmployeeShift(int(staff.stuID), dayOff, 'off')
-                
+        for index in self.dataframe.index:
+            for dayOff in self.getTimeOff(index):
+                self.calendar.assignEmployeeShift(index, dayOff, 'off')
+    
+    def sublistOfStaff(self, shiftType, shiftCount):
+        listOfStaffID = []
+        try:
+            for index in self.dataframe.index:
+                if self.dataframe[shiftType][index] == shiftCount:
+                    listOfStaffID.append(index)   
+        except Exception as e:
+            sys.exit("Invalid shift type")        
+        return listOfStaffID    
+    
+    def findMinShiftCount(self, shiftType):
+        minShiftCount = self.MAXSHIFTS
+        for index in self.dataframe.index:
+            aShiftCount = self.dataframe[shiftType][index]
+            if aShiftCount < minShiftCount:
+                minShiftCount = aShiftCount
+        return minShiftCount
+    def myCoolHashFunc(self, nut, bound):
+        if (bound != 0):
+            return nut % bound
+        return 0
+    def runAlgorithm(self, numDays):
+        for day in self.createPrioList(numDays):
+            for shiftType in self.getShiftTypes():
+                minShiftCount = self.findMinShiftCount(shiftType)
+                oopsiepoopsiecounter = 0
+                staffAssigned = False
+                randNum = random.randint(0,len(self.dataframe))
+                while staffAssigned is False:
+                    prioStaff = self.sublistOfStaff(shiftType, minShiftCount)
+                    staffID = prioStaff[self.myCoolHashFunc(randNum + oopsiepoopsiecounter, len(prioStaff))]
+                    if self.calendar.isEmployeeAssigned(staffID, day) is False and staffID not in self.calendar.unavailableEmployees(day, 'off'):
+                        self.calendar.assignEmployeeShift(staffID, day, shiftType)
+                        self.dataframe[shiftType][staffID] += 1
+                        staffAssigned = True
+                    else:
+                        oopsiepoopsiecounter += 1
+                        if oopsiepoopsiecounter >= len(prioStaff):
+                            minShiftCount += 1
+                        elif minShiftCount >= self.MAXSHIFTS:
+                            sys.exit(f"Issue with day {day}. Try restarting program or clear schedule conflict")
+
     def printCal(self):
         self.calendar.toString()
     def deleteCal(self):
@@ -69,3 +109,4 @@ class csvtosql:
     
 nut = csvtosql('mycsvfile.csv')
 nut.fillDaysOff()
+nut.runAlgorithm(31)

@@ -82,12 +82,12 @@ class calendarDS:
         :return: List of employees whose status matches the unavailableNum
         :rtype: List
         """
-        self.cursor.execute('SELECT stuID FROM calendar WHERE dayNum = ?, shiftType = ?', (dayNum, dayOffSymbol))
+        self.cursor.execute('SELECT stuID FROM calendar WHERE dayNum = ? AND shiftType = ?', (dayNum, dayOffSymbol))
         return self.cursor.fetchall()
 
     def clearTable(self):
         self.cursor.execute('DROP TABLE IF EXISTS calendar')
 
     def toString(self):
-        self.cursor.execute('SELECT * FROM calendar')
+        self.cursor.execute('SELECT * FROM calendar ORDER BY dayNum')
         print(self.cursor.fetchall())
