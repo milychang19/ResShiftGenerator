@@ -5,11 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <h1 class="display-4" style="background: linear-gradient(to right, lime, rgb(60, 72, 138)); font-size: 110px; -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: bold;">RLS-Shift-Creator</h1> -->
     <div class="jumbotron">
-        <centre>
-            <h1 class="display-4" style="background: linear-gradient(to left, lime, purple); font-size: 80px; -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: bold;">Residence Staff Schedule Generator</h1>
-        </centre>
     </div>
     <link rel="stylesheet" type = "text/css" href="{% static 'style.css' %}">
     <!-- Assuming 'style.css' is a static file in your Django project -->
@@ -41,7 +37,6 @@
 </script>
 
 <body>
-
     <nav>
         <ul>
             <li><a href="{{ request.path }}">Home</a></li>
@@ -51,9 +46,10 @@
             <li><a href="{% url 'generator' %}">Generator</a></li>
         </ul>
     </nav>
+
     <header class="header-home">
         <sub>University of Guelph</sub>
-        <h1>Residence Life Schedule<br>Generator</h1>
+        <h1 class="display-4" style="background: linear-gradient(to right, pink, salmon); -webkit-background-clip: text; background-clip: text; color: transparent;">Residence Life Schedule<br>Generator</h1>
         <a href="{% url 'teams' %}"><button class="my-button btn-effect button-START">Start</button></a>
     </header>
     
