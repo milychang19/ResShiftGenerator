@@ -1,14 +1,36 @@
 <!-- Inside csvapp/templates/display_data.html -->
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Display CSV Data</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display CSV Data in display_data.html</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
+
 <body>
-    <h1>CSV Data 22in display_data.html</h1>
-        <!-- Render the HTML table -->
-        {{ data_html | safe }}
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'teams' %}">Residence Teams</a></li>
+            <li><a href="{% url 'guide' %}">User Guide</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{{ request.path }}">Generator</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h2>Please show</h2>
+        <h4>show it</h4>
+    </header>
+
+    <!-- <h1>CSV Data in display_data.html</h1> -->
+    <!-- Render the HTML table -->
+    {{ data_html | safe }}
+
+        <!-- <p class="footer-text">&copy; 2024 Residence Life Staff Schedule Generator. No rights reserved.</p> -->
+        <p>&copy; 2024 Residence Life Staff Schedule Generator. No rights reserved.</p>
+    </footer>
 </body>
-</html>
-
-
