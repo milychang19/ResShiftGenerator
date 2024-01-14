@@ -6,7 +6,12 @@ import os
 class FileManager:
     def __init__(self, csv_path):
         self.csv_path = csv_path
+<<<<<<< HEAD
+        self.staff_df = None
+
+=======
         self.staff_df = pd.DataFrame()
+>>>>>>> main
     #gets CSV file from the filePath
     #since it's going to be path/to/file/whatever.csv, we want to isolate the whatever.csv
     def get_building_files(self):
@@ -98,8 +103,13 @@ class FileManager:
     def set_total(self):
         self.staff_df["Total_shifts"] = self.staff_df['PH1'] + self.staff_df['NH1'] + self.staff_df['PH2'] + self.staff_df['NH2']
 
+<<<<<<< HEAD
+staff_data = FileManager("../teamInfo.csv")
+
+=======
 #staff_data = FileManager("../teamInfo.csv")
 #print(staff_data.get_first_pack_holder())
+>>>>>>> main
 
 def main():
     # Initialize FileManager with the path to the CSV files

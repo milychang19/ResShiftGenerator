@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residence Staff Schedule Generator</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'teams' %}">Residence Teams</a></li>
+            <li><a href="{% url 'guide' %}">User Guide</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{{ request.path }}">Generator</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h2>This is to generate</h2>
+        <h4>Do it</h4>
+    </header>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="csv_file">
+        <input type="submit" value="Upload CSV">
+    </form>
+
+        <!-- <p class="footer-text">&copy; 2024 Residence Life Staff Schedule Generator. No rights reserved.</p> -->
+        <p>&copy; 2024 Residence Life Staff Schedule Generator. No rights reserved.</p>
+    </footer>
+</body>
+

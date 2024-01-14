@@ -15,5 +15,4 @@ We aim to create solutions that cater to the various challenges in residences, u
 
 ## Development 
 
-## Description
 

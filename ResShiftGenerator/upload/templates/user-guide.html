@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+    <title>User Guide - Student Housing Schedule Generator</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'teams' %}">Residence Teams</a></li>
+            <li><a href="{{ request.path }}">User Guide</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'generator' %}">Generator</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>User Guide</h1>
+    </header>
+    <header>
+        <h2>JAM</h2>
+        <h4>Johnston, Arts Hauz & Mills Hall</h4>
+    </header>
+    <footer class="ft-JAM">
+
+    <header>
+        <h2>LAWA</h2>
+        <h4>Lambton and Watson Halls</h4>
+    </header>
+    <footer class="ft-LAWA">
+
+    <main>
+        <section>
+            <h2>Introduction</h2>
+            <p>Welcome to the user guide for RLS shift generator
