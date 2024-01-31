@@ -35,6 +35,7 @@ def user_guide(request):
     
 #     return render(request, 'upload_csv.html')
 
+#CSV file 
 def generator(request):
     if request.method == 'POST' and request.FILES['csv_file']:
         csv_file = request.FILES['csv_file']
