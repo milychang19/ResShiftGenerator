@@ -3,8 +3,8 @@ This web app allows our supervisors to create monthly on-call schedules for ever
 
 ## Authors
 Emily Chang of Martime Hall  
-Richard Cui of Lennox-Addington  
-Molin Li of East Dundas Residence  
+Richard Cui of Lennox-Addington & Johnston Hall
+Molin Li of East Dundas Residence & Mountain Hall
 
 ## About Us
 We are 3 University of Guelph Computing students passionate about creating interdiciplinary appraoches to positively impact the community.
